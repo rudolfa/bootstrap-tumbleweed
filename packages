@@ -1,0 +1,72 @@
+# {{{ Base Packages
+# Packages which are neccesary for other packages
+
+base_packages=(
+# Neccesary for Intellij
+	"libgthread-2_0-0"
+# Neccesary for asciidoc support in eclipse
+	"libwebkit2gtk-4_1-0"
+# Nessesary for plantuml#
+	"graphviz"
+)
+
+base_optional_packages=(
+# Counting physical the lines of code, blank lines, comment lines, 
+# and physical lines of source code in many programming languages.
+	"scc"
+	"ripgrep"
+	"ripgrep-bash-completion"
+	"fzf"
+	"vim-fzf"
+	"fzf-bash-integration"
+	"tmux"
+	"bat"
+)
+
+# -------------------------------------------------------------------------- }}}
+
+# {{{ Organisation Packages
+
+organisation_packages=(
+	"timewarrior"
+	"taskwarrior"
+)
+# -------------------------------------------------------------------------- }}}
+
+
+# {{{ Common Development Packages
+
+common_dev_packages=(
+	"nvim"
+)
+
+# -------------------------------------------------------------------------- }}}
+
+# {{{ Java Development Packages
+
+java_packages=(
+	"java-17-openjdk"
+	"java-17-openjdk-devel"
+	"java-17-openjdk-javadoc"
+	"java-17-openjdk-src"
+	"java-21-openjdk"
+	"java-21-openjdk-devel"
+	"java-21-openjdk-javadoc"
+	"java-21-openjdk-src"
+	"maven"
+	)
+# -------------------------------------------------------------------------- }}}
+
+# {{{ Version Control Systems
+
+vcs_packages=(
+	"subversion"
+	"subversion-bash-completion"
+	"subversion-doc"
+	"subversion-tools"
+	"git"
+	"lazygit"
+	)
+
+# -------------------------------------------------------------------------- }}}
+

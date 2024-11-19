@@ -1,0 +1,11 @@
+# {{{ Products to install.
+
+basePackagesFlag=true
+baseOptionalPackagesFlag=true
+commonDevPackagesFlag=true
+organisationPackagesFlag=true
+javaDevelopmentPackagesFlag=true
+versionControlSystemToolsFlag=true
+
+
+# -------------------------------------------------------------------------- }}}
