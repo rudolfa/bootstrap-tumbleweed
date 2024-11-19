@@ -1,2 +1,6 @@
 # bootstrap-tumbleweed
-Restore my development environment
+
+I use this repository to setup a newly installed opensuse tumbleweed instance
+or to restore my development environment
+
+
