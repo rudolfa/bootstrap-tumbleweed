@@ -33,7 +33,6 @@ organisation_packages=(
 )
 # -------------------------------------------------------------------------- }}}
 
-
 # {{{ Common Development Packages
 
 common_dev_packages=(

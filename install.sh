@@ -21,6 +21,7 @@ main() {
 	installJavaDevelopmentPackages
 	installVersionControlSystemTools
 	
+	installSdkman
 
 }
 # -------------------------------------------------------------------------- }}}
@@ -50,6 +51,7 @@ sourceFiles() {
 }
 
 # -------------------------------------------------------------------------- }}}
+
 # {{{ Install organisational packagaes
 
 installOrganisationalPackages(){
@@ -60,7 +62,8 @@ installOrganisationalPackages(){
 }
 
 # -------------------------------------------------------------------------- }}}
-# {{{ Install base packages
+
+# {{{ Install base packageszo
 
 installBasePackages(){
 	if [[ $basePackagesFlag == true ]]; then
@@ -93,6 +96,20 @@ installCommonDevPackages(){
 
 # -------------------------------------------------------------------------- }}}
 
+# {{{ Install sdkman, a software development kit manager
+installSdkman(){
+	if [ -n "$SDKMAN_DIR" ]; then
+		echo "SDKMAN already installed ( Env variable SDKMAN_DIR in use )."
+	elif command -v sdk &> /dev/null; then
+		echo "SDKMAN already installed (Command sdk is available):"
+	else
+		echo "SDKMAN not installed"
+		curl -s "https://get.sdkman.io?rcupdate=false" | bash
+	fi
+}
+
+#--------------------------------------------------------------------------- }}}
+
 # {{{ Install java development packages
 
 installJavaDevelopmentPackages(){
@@ -116,7 +133,6 @@ installVersionControlSystemTools(){
 		fi
 }
 # -------------------------------------------------------------------------- }}}
-
 
 # {{{ The stage is set ... start the show!!!
 
