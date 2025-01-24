@@ -21,16 +21,16 @@ bootstrapGitRepos=$HOME/git
 
     cloneRepos
 
-	sourceFiles
+    sourceBootstrapFiles
 
-#	installBasePackages
-#	installBaseOptionalPackages
-#	installCommonDevPackages
-#	installOrganisationalPackages
-#	installJavaDevelopmentPackages
-#	installVersionControlSystemTools
-#	
-#	installSdkman
+	installBasePackages
+	installBaseOptionalPackages
+	installCommonDevPackages
+	installOrganisationalPackages
+	installJavaDevelopmentPackages
+	installVersionControlSystemTools
+	
+	installSdkman
 
 }
 # -------------------------------------------------------------------------- }}}
@@ -84,13 +84,15 @@ done
 
 # {{{ Source all configuration files
 
-sourceFiles() {
+sourceBootstrapFiles() {
+
   missingFile=0
 
   files=(config packages)
   for f in "${files[@]}"
   do
-    source "$f"
+    srcfile=$bootstrapGitRepos/bootstrap-tumbleweed/$f
+    source "$srcfile"
   done
 
   [[ $missingFile == true ]] && say 'Missing file(s) program exiting.' && exit
