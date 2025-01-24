@@ -10,18 +10,23 @@
 
 main() {
 
+# Root directory for git repositories which are used to customize bootstrap process
+bootstrapGitRepos=$HOME/git
+
 	cwd=$(pwd)
+
+	installGit
 
 	sourceFiles
 
-	installBasePackages
-	installBaseOptionalPackages
-	installCommonDevPackages
-	installOrganisationalPackages
-	installJavaDevelopmentPackages
-	installVersionControlSystemTools
-	
-	installSdkman
+#	installBasePackages
+#	installBaseOptionalPackages
+#	installCommonDevPackages
+#	installOrganisationalPackages
+#	installJavaDevelopmentPackages
+#	installVersionControlSystemTools
+#	
+#	installSdkman
 
 }
 # -------------------------------------------------------------------------- }}}
@@ -31,6 +36,44 @@ main() {
 say() {
   echo '********************'
   echo "${1}"
+}
+
+# -------------------------------------------------------------------------- }}}
+
+# {{{ Install git 
+
+installGit() {
+	if ! command -v git >/dev/null 2>&1; then
+		echo "Git ist nicht installiert."
+		sudo zypper install git
+	fi
+}
+
+
+# -------------------------------------------------------------------------- }}}
+
+# {{{ Clone 
+
+cloneRepos(){
+
+repos=(
+	"bootstrap-tumbleweed"
+#	"dotfiles"
+#	"tmux"
+#	"vim"
+#	"nvim"
+)
+
+say 'Cloning my git repositories'
+for repo in "$repos[@]}"
+do
+	src=https://github.com/rudolfa/$repo.git
+	dst=$bootstrapGitRepos/$repo
+	if [ ! -d $dst ]; then
+		git clone "$src" "$dst"
+		echo ""
+	fi
+done
 }
 
 # -------------------------------------------------------------------------- }}}

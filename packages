@@ -6,7 +6,7 @@ base_packages=(
 	"libgthread-2_0-0"
 # Neccesary for asciidoc support in eclipse
 	"libwebkit2gtk-4_1-0"
-# Nessesary for plantuml#
+# Nessesary for plantuml
 	"graphviz"
 )
 
@@ -37,7 +37,21 @@ organisation_packages=(
 
 common_dev_packages=(
 	"nvim"
+	"kdiff3"
 )
+
+# -------------------------------------------------------------------------- }}}
+
+# {{{ Version Control Systems
+# Git will be installed directly by install-script
+
+vcs_packages=(
+	"subversion"
+	"subversion-bash-completion"
+	"subversion-doc"
+	"subversion-tools"
+	"lazygit"
+	)
 
 # -------------------------------------------------------------------------- }}}
 
@@ -56,16 +70,4 @@ java_packages=(
 	)
 # -------------------------------------------------------------------------- }}}
 
-# {{{ Version Control Systems
-
-vcs_packages=(
-	"subversion"
-	"subversion-bash-completion"
-	"subversion-doc"
-	"subversion-tools"
-	"git"
-	"lazygit"
-	)
-
-# -------------------------------------------------------------------------- }}}
 
