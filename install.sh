@@ -13,9 +13,13 @@ main() {
 # Root directory for git repositories which are used to customize bootstrap process
 bootstrapGitRepos=$HOME/git
 
+    mkdir -p $bootstrapGitRepos
+
 	cwd=$(pwd)
 
 	installGit
+
+    cloneRepos
 
 	sourceFiles
 
@@ -65,7 +69,7 @@ repos=(
 )
 
 say 'Cloning my git repositories'
-for repo in "$repos[@]}"
+for repo in "${repos[@]}"
 do
 	src=https://github.com/rudolfa/$repo.git
 	dst=$bootstrapGitRepos/$repo
