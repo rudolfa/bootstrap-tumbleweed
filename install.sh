@@ -17,7 +17,7 @@ bootstrapGitRepos=$HOME/git
 
 	cwd=$(pwd)
 
-    addExternalRepos
+    enableRepoVendorChange
 
 	installGit
 
@@ -33,6 +33,9 @@ bootstrapGitRepos=$HOME/git
 	installVersionControlSystemTools
 	
 	installSdkman
+
+    # Execute at last, because you have to logout/login or reboot after this
+    addExternalRepos
 
 }
 # -------------------------------------------------------------------------- }}}
@@ -187,21 +190,33 @@ installVersionControlSystemTools(){
 }
 # -------------------------------------------------------------------------- }}}
 
-# {{{ Configure OS Repositories
+# {{{ Enable OS repositories vendor change
 
-addExternalRepos(){
-# First enforce zypper solver.dupAllowVendorChange set to true
-zypperConfFile=/etc/zypp/zypp.conf
-vendorChange=$(awk '/^solver.dupAllowVendorChange/ {print $3}' $zypperConfFile ) 
-if [ ! "true" == "$vendorChange" ]
+enableRepoVendorChange(){
+    # First enforce zypper solver.dupAllowVendorChange set to true
+    zypperConfFile=/etc/zypp/zypp.conf
+    vendorChange=$(awk '/^solver.dupAllowVendorChange/ {print $3}' $zypperConfFile ) 
+    if [ ! "true" == "$vendorChange" ]
     then
         say "Adjust zypper configuration to allow vendor changes during distribution upgrades"
         sudo sed -i \
             -e '/^[# ]*solver\.dupAllowVendorChange/ s/^/#/' \
             -e '/^[# ]*solver\.dupAllowVendorChange.*/ a solver.dupAllowVendorChange = true' $zypperConfFile
-fi
+    fi
+}
+# -------------------------------------------------------------------------- }}}
 
-# Check if we have a configured Pacman repository 
+# {{{ addExternalRepos 
+addExternalRepos() {
+    # Check if we have a configured Pacman repository 
+    reposalias=packman-essentials
+    if ! zypper lr -P | awk -F'|' 'NR>2 {print $2}' | grep -qw "$reposalias";then
+        say "Add $reposalias repository entry"
+        sudo zypper ar -cfp 90 'https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/Essentials/' packman-essentials
+        sudo zypper dup --from packman-essentials --allow-vendor-change
+    else
+        say "Repo alias $reposalias entry already exist"
+    fi
 
 }
 # -------------------------------------------------------------------------- }}}
