@@ -17,6 +17,8 @@ bootstrapGitRepos=$HOME/git
 
 	cwd=$(pwd)
 
+    addExternalRepos
+
 	installGit
 
     cloneRepos
@@ -154,6 +156,8 @@ installSdkman(){
 	else
 		echo "SDKMAN not installed"
 		curl -s "https://get.sdkman.io?rcupdate=false" | bash
+		sdkhome=$HOME/.sdkman/bin/sdkman-init.sh
+		source "$sdkhome"
 	fi
 }
 
@@ -180,6 +184,25 @@ installVersionControlSystemTools(){
 				say "Install version control system tools"
 				sudo zypper in "${vcs_packages[@]}"
 		fi
+}
+# -------------------------------------------------------------------------- }}}
+
+# {{{ Configure OS Repositories
+
+addExternalRepos(){
+# First enforce zypper solver.dupAllowVendorChange set to true
+zypperConfFile=/etc/zypp/zypp.conf
+vendorChange=$(awk '/^solver.dupAllowVendorChange/ {print $3}' $zypperConfFile ) 
+if [ ! "true" == "$vendorChange" ]
+    then
+        say "Adjust zypper configuration to allow vendor changes during distribution upgrades"
+        sudo sed -i \
+            -e '/^[# ]*solver\.dupAllowVendorChange/ s/^/#/' \
+            -e '/^[# ]*solver\.dupAllowVendorChange.*/ a solver.dupAllowVendorChange = true' $zypperConfFile
+fi
+
+# Check if we have a configured Pacman repository 
+
 }
 # -------------------------------------------------------------------------- }}}
 
