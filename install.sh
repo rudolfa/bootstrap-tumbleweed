@@ -33,6 +33,8 @@ bootstrapGitRepos=$HOME/git
 	installVersionControlSystemTools
 	
 	installSdkman
+    installSdkPackages
+
 
     # Execute at last, because you have to logout/login or reboot after this
     addExternalRepos
@@ -162,6 +164,18 @@ installSdkman(){
 		sdkhome=$HOME/.sdkman/bin/sdkman-init.sh
 		source "$sdkhome"
 	fi
+}
+#--------------------------------------------------------------------------- }}}
+
+# {{{ Install sdkman packages
+installSdkPackages(){
+    if [[ $sdkmanPackagesFlag == true ]]; then
+        say "Install packages via sdkman"
+        for package in ${sdkman_packages[@]}
+        do
+            sdk install $package
+        done
+    fi
 }
 
 #--------------------------------------------------------------------------- }}}
